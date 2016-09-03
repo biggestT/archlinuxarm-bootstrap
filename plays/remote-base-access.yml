@@ -1,10 +1,8 @@
 ---
 - name: Set up basic stuff for servers
-  hosts: cloud-lan
+  hosts: raspberry
   become: yes
   become_method: su
   gather_facts: false
-  vars:
-    - user_name: bigt
   roles:
     - { role: remote-access }

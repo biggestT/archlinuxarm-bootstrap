@@ -1,6 +1,6 @@
 ---
 - name: Set up stuff fundamental for ansible on clean arch
-  hosts: cloud-lan
+  hosts: raspberry
   gather_facts: false
   become: yes
   become_method: su

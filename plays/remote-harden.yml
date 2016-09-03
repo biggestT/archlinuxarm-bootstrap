@@ -1,10 +1,8 @@
 ---
 - name: Set up basic access to remote server
-  hosts: cloud-lan
+  hosts: raspberry
   become: yes
   become_method: sudo
   gather_facts: false
-  vars:
-    - user_name: bigt
   roles:
     - { role: hardened }
