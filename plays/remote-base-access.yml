@@ -4,5 +4,12 @@
   become: yes
   become_method: su
   gather_facts: false
+  vars_prompt:
+    - name: 'user_name'
+      prompt: 'Enter your user name'
+    - name: 'user_pubkey'
+      prompt: 'Enter public RSA key for user (copy from e.g ~/.ssh/id_rsa.pub)'
+
   roles:
     - { role: remote-access }
+  
