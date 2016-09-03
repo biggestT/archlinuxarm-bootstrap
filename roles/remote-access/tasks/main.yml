@@ -1,0 +1,29 @@
+---
+- name: Install base packages
+  pacman:
+    name: base-devel
+  tags: base-packages
+
+- name: Add sudoers file
+  copy:
+    src: sudoers
+    dest: /etc/sudoers
+  tags: sudo
+
+- name: Add sudo group
+  group:
+    name: sudo
+  tags: sudo
+        
+- name: Add user
+  user:
+    name: '{{ user_name }}'
+    createhome: yes
+    append: yes
+    groups:  wheel,sudo,adm,systemd-journal
+    shell: /bin/bash
+  tags: user
+
+- name: Setup ssh key access
+  tags: ssh
+  include: ssh-add.yml

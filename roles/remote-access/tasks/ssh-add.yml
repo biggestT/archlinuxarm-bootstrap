@@ -1,0 +1,27 @@
+---
+
+- name: Create user ssh dir
+  become: yes
+  become_method: su
+  file:
+    path: /home/{{ user_name }}/.ssh
+    state: directory
+    group: '{{ user_name }}'
+    owner: '{{ user_name }}'
+    mode: 0700
+
+- name: Get public SSH key for {{ user_name }}
+  local_action: "command pass show ssh/{{ user_name }}-pubkey"
+  become: false
+  register: user_pubkey
+  failed_when: not user_pubkey.rc == 0
+
+- name: Add ssh key to authorized keys
+  become: yes
+  become_method: su
+  copy:
+    dest: /home/{{ user_name }}/.ssh/authorized_keys
+    content: "{{ user_pubkey.stdout }}"
+    owner: '{{ user_name }}'
+    group: '{{ user_name }}'
+    mode: 0600

@@ -1,0 +1,15 @@
+---
+- name: Set up stuff fundamental for ansible on clean arch
+  hosts: cloud-lan
+  gather_facts: false
+  become: yes
+  become_method: su
+  tasks:
+    - name: Fix resolver
+      raw: echo "nameserver  8.8.8.8" > /etc/resolv.conf
+    - name: Sync pacman
+      raw: pacman -Sy --noconfirm
+    - name: Install python
+      raw: pacman -S --noconfirm python2
+    - name: Symlink python2 -> python
+      raw: ln -s /usr/bin/python2 /usr/bin/python

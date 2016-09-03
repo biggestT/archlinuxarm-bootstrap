@@ -1,0 +1,9 @@
+---
+
+- name: Add secure sshd config
+  tags: ssh
+  copy:
+    src: sshd_config
+    dest: /etc/ssh/sshd_config
+    mode: 0600
+  notify: restart sshd

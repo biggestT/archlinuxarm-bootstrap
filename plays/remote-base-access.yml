@@ -1,0 +1,10 @@
+---
+- name: Set up basic stuff for servers
+  hosts: cloud-lan
+  become: yes
+  become_method: su
+  gather_facts: false
+  vars:
+    - user_name: bigt
+  roles:
+    - { role: remote-access }
